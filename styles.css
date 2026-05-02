@@ -1,0 +1,356 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: #020205;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.scene-shell {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(94, 72, 130, 0.22), transparent 22%),
+    radial-gradient(circle at 14% 16%, rgba(28, 117, 137, 0.18), transparent 23%),
+    radial-gradient(circle at 84% 11%, rgba(179, 141, 69, 0.14), transparent 24%),
+    linear-gradient(180deg, #0c101c 0%, #05060d 62%, #020204 100%);
+}
+
+.scene-shell::before,
+.scene-shell::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scene-shell::before {
+  background:
+    linear-gradient(90deg, transparent 0 48%, rgba(238, 216, 151, 0.05) 49%, transparent 52%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 38px);
+  mix-blend-mode: screen;
+  opacity: 0.62;
+}
+
+.scene-shell::after {
+  background:
+    radial-gradient(circle at center, transparent 46%, rgba(0, 0, 0, 0.28) 75%, rgba(0, 0, 0, 0.66) 100%),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 6px);
+  mix-blend-mode: soft-light;
+  opacity: 0.7;
+}
+
+.portal-svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: saturate(1.06) contrast(1.07);
+}
+
+.interactive-shape {
+  cursor: pointer;
+  outline: none;
+}
+
+.interactive-shape .focus-ring {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.interactive-shape:hover > .focus-ring,
+.interactive-shape:focus-visible > .focus-ring {
+  opacity: 0.85;
+}
+
+#watchGroup:hover > .focus-ring {
+  opacity: 0.18;
+}
+
+#watchGroup:focus-visible > .focus-ring {
+  opacity: 0.62;
+}
+
+.hit-area {
+  pointer-events: all;
+}
+
+#watchGroup > .hit-area {
+  pointer-events: none;
+}
+
+#watchGroup,
+#keyGroup,
+#starGroup,
+.theme-button {
+  transition: opacity 220ms ease;
+}
+
+.theme-button.is-active .button-core {
+  stroke: rgba(242, 217, 126, 0.58);
+  stroke-width: 2.4;
+}
+
+.theme-button.is-active .button-glow {
+  opacity: 0.18;
+}
+
+#ambientStars,
+#watchStars,
+#starGlow,
+#threadStitches {
+  transition: opacity 240ms ease;
+}
+
+.scene-shell[data-stars="off"] #ambientStars,
+.scene-shell[data-stars="off"] #watchStars,
+.scene-shell[data-stars="off"] #threadStitches {
+  opacity: 0.18;
+}
+
+.scene-shell[data-stars="off"] #starGlow {
+  opacity: 0.06;
+}
+
+#watchGlowMain,
+#keyGlow,
+#secondHand,
+#minuteHand,
+#hourHand {
+  transition: opacity 220ms ease, fill 220ms ease;
+}
+
+.scene-shell[data-mode="countdown"] #watchGlowMain {
+  opacity: 0.86;
+}
+
+.scene-shell[data-mode="countdown"] #secondHand {
+  fill: #f0bd6c;
+}
+
+.scene-shell[data-mode="countdown"] #minuteHand {
+  fill: #f5ead0;
+}
+
+.scene-shell[data-mode="countdown"] #hourHand {
+  fill: #ded0bc;
+}
+
+.scene-shell[data-motion="locked"] #keyGlow {
+  fill-opacity: 0.14;
+}
+
+.watch-numeral {
+  fill: rgba(5, 5, 5, 0.92);
+  font-size: 22px;
+  font-weight: 500;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.watch-dot {
+  fill: rgba(245, 248, 250, 0.76);
+}
+
+#watchHands {
+  pointer-events: none;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.28));
+}
+
+#pendulumGroup {
+  pointer-events: none;
+}
+
+#clockVines path {
+  fill: none;
+  stroke: #020305;
+  stroke-width: 9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.92;
+}
+
+.objective-marker {
+  cursor: pointer;
+  outline: none;
+}
+
+.objective-marker .objective-marker-ring,
+.objective-marker .objective-marker-glow {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.objective-marker .objective-marker-glow {
+  opacity: 0.22;
+}
+
+.objective-marker:hover .objective-marker-glow,
+.objective-marker:focus-visible .objective-marker-glow,
+.objective-marker.is-active .objective-marker-glow {
+  opacity: 0.78;
+}
+
+.objective-marker:hover .objective-marker-ring,
+.objective-marker:focus-visible .objective-marker-ring,
+.objective-marker.is-active .objective-marker-ring {
+  opacity: 1;
+}
+
+.objective-marker .focus-ring {
+  opacity: 0;
+}
+
+.objective-marker:focus-visible .focus-ring {
+  opacity: 0.9;
+}
+
+.objective-panel {
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.objective-panel.is-visible {
+  opacity: 1;
+}
+
+.objective-panel-bg {
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.5));
+}
+
+.objective-back {
+  cursor: pointer;
+  outline: none;
+  pointer-events: all;
+}
+
+.objective-back rect {
+  transition: fill 160ms ease, stroke-opacity 160ms ease;
+}
+
+.objective-back:hover rect,
+.objective-back:focus-visible rect {
+  fill: #172236;
+  stroke-opacity: 0.56;
+}
+
+.objective-back-text {
+  fill: rgba(236, 241, 239, 0.8);
+  font-size: 6.5px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 0;
+  pointer-events: none;
+}
+
+.objective-title {
+  fill: #f3d57f;
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.objective-number {
+  fill: rgba(169, 242, 231, 0.88);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.objective-meta,
+.objective-status {
+  fill: #a9f2e7;
+  font-size: 7.1px;
+  letter-spacing: 0;
+}
+
+.objective-status {
+  fill: rgba(243, 213, 127, 0.86);
+  font-size: 7.1px;
+  letter-spacing: 0;
+}
+
+.objective-copy {
+  fill: rgba(236, 241, 239, 0.76);
+  font-size: 7.1px;
+  letter-spacing: 0;
+}
+
+.objective-detail {
+  display: none;
+}
+
+.count-chip rect {
+  fill: rgba(7, 21, 42, 0.88);
+  stroke: rgba(134, 243, 229, 0.22);
+  stroke-width: 0.8;
+}
+
+.objective-count-number {
+  fill: rgba(248, 242, 220, 0.96);
+  font-size: 8.4px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 0;
+}
+
+.objective-count-label {
+  fill: rgba(169, 242, 231, 0.58);
+  font-size: 4px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  letter-spacing: 0;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #watchGroup,
+  #keyGroup,
+  #starGroup,
+  .theme-button,
+  .interactive-shape .focus-ring,
+  #ambientStars,
+  #watchStars,
+  #starGlow,
+  #threadStitches,
+  #watchGlowMain,
+  #keyGlow,
+  #secondHand,
+  #minuteHand,
+  #hourHand,
+  .objective-marker .objective-marker-ring,
+  .objective-marker .objective-marker-glow,
+  .objective-panel,
+  .objective-back rect {
+    transition: none;
+  }
+}

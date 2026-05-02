@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Entrada Costurada</title>
+    <meta
+      name="description"
+      content="Cena interativa em SVG, CSS e JavaScript com porta pequena, túnel costurado e relógio sombrio."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="scene-shell" id="sceneShell" data-stars="on" data-motion="flowing" data-mode="clock">
+      <svg
+        class="portal-svg"
+        id="portalSvg"
+        viewBox="0 0 1000 1000"
+        preserveAspectRatio="xMidYMid slice"
+        role="img"
+        aria-labelledby="portalTitle portalDesc"
+      >
+        <title id="portalTitle">Entrada costurada para o outro mundo</title>
+        <desc id="portalDesc">
+          Uma pequena porta azul abre para um túnel costurado em tons de céu chuvoso,
+          dourado envelhecido e violeta, com um relógio estranho no centro.
+        </desc>
+
+        <defs>
+          <radialGradient id="bgGradient" cx="50%" cy="42%" r="72%">
+            <stop id="bgStopA" offset="0%" stop-color="#253f55" />
+            <stop id="bgStopB" offset="50%" stop-color="#0b0c18" />
+            <stop id="bgStopC" offset="100%" stop-color="#020205" />
+          </radialGradient>
+
+          <radialGradient id="centerVoid" cx="50%" cy="46%" r="58%">
+            <stop offset="0%" stop-color="#05060b" stop-opacity="0.1" />
+            <stop offset="58%" stop-color="#05060b" stop-opacity="0.7" />
+            <stop offset="100%" stop-color="#020205" stop-opacity="1" />
+          </radialGradient>
+
+          <radialGradient id="watchOuterMetal" cx="30%" cy="22%" r="80%">
+            <stop offset="0%" stop-color="#d7c189" />
+            <stop offset="22%" stop-color="#75664d" />
+            <stop offset="66%" stop-color="#191725" />
+            <stop offset="100%" stop-color="#07070d" />
+          </radialGradient>
+
+          <radialGradient id="watchInnerMetal" cx="36%" cy="30%" r="72%">
+            <stop offset="0%" stop-color="#7c7884" />
+            <stop offset="48%" stop-color="#1b1a29" />
+            <stop offset="100%" stop-color="#08070a" />
+          </radialGradient>
+
+          <radialGradient id="watchFaceGradient" cx="42%" cy="34%" r="84%">
+            <stop offset="0%" stop-color="#fff4d7" />
+            <stop offset="58%" stop-color="#eedcab" />
+            <stop offset="100%" stop-color="#cfb979" />
+          </radialGradient>
+
+          <radialGradient id="watchGlowGradient" cx="44%" cy="40%" r="64%">
+            <stop id="watchGlowStopA" offset="0%" stop-color="#70ead4" stop-opacity="0.54" />
+            <stop id="watchGlowStopB" offset="42%" stop-color="#f1c86e" stop-opacity="0.22" />
+            <stop id="watchGlowStopC" offset="100%" stop-color="#09111c" stop-opacity="0" />
+          </radialGradient>
+
+          <linearGradient id="hourHandGradient" x1="0" y1="10" x2="0" y2="-54" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#050505" />
+            <stop offset="58%" stop-color="#111111" />
+            <stop offset="100%" stop-color="#000000" />
+          </linearGradient>
+
+          <linearGradient id="minuteHandGradient" x1="0" y1="14" x2="0" y2="-76" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#050505" />
+            <stop offset="52%" stop-color="#111111" />
+            <stop offset="100%" stop-color="#000000" />
+          </linearGradient>
+
+          <linearGradient id="wallpaperStripeGradient" x1="0" y1="0" x2="0" y2="1000" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2d6f86" stop-opacity="0.32" />
+            <stop offset="46%" stop-color="#14263c" stop-opacity="0.2" />
+            <stop offset="100%" stop-color="#050712" stop-opacity="0.72" />
+          </linearGradient>
+
+          <linearGradient id="doorPaintGradient" x1="360" y1="138" x2="640" y2="840" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#56b8c4" />
+            <stop offset="48%" stop-color="#1b5b78" />
+            <stop offset="100%" stop-color="#0b1a30" />
+          </linearGradient>
+
+          <radialGradient id="doorLightGradient" cx="50%" cy="30%" r="70%">
+            <stop offset="0%" stop-color="#f5d878" stop-opacity="0.72" />
+            <stop offset="32%" stop-color="#72d4d5" stop-opacity="0.34" />
+            <stop offset="100%" stop-color="#010204" stop-opacity="0" />
+          </radialGradient>
+
+          <linearGradient id="threadGradient" x1="0" y1="0" x2="1000" y2="1000" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#ffd87a" />
+            <stop offset="48%" stop-color="#e8f6ef" />
+            <stop offset="100%" stop-color="#6de5d0" />
+          </linearGradient>
+
+          <radialGradient id="buttonEyeGradient" cx="32%" cy="28%" r="74%">
+            <stop offset="0%" stop-color="#626b7b" />
+            <stop offset="46%" stop-color="#181a22" />
+            <stop offset="100%" stop-color="#030306" />
+          </radialGradient>
+
+          <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="10" />
+          </filter>
+
+          <filter id="deepBlur" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="18" />
+          </filter>
+
+          <filter id="clothTexture" x="-30%" y="-30%" width="160%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.004 0.05" numOctaves="2" seed="7" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+
+          <filter id="paintTexture" x="-30%" y="-30%" width="160%" height="160%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.012 0.035" numOctaves="2" seed="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" xChannelSelector="R" yChannelSelector="B" result="distort" />
+            <feGaussianBlur in="distort" stdDeviation="0.35" />
+          </filter>
+
+          <filter id="paperGrain" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018 0.05" numOctaves="3" seed="13" result="grain" />
+            <feColorMatrix in="grain" type="saturate" values="0" result="mono" />
+            <feComponentTransfer in="mono" result="grainAlpha">
+              <feFuncA type="table" tableValues="0 0.16" />
+            </feComponentTransfer>
+            <feBlend in="SourceGraphic" in2="grainAlpha" mode="soft-light" />
+          </filter>
+
+          <g id="dynamicDefs"></g>
+        </defs>
+
+        <rect width="1000" height="1000" fill="url(#bgGradient)" />
+
+        <g id="wallpaperLayer" aria-hidden="true">
+          <path d="M 0 0 H 1000 V 1000 H 0 Z" fill="#050712" opacity="0.34" />
+          <path d="M 22 0 C 56 164 48 356 26 500 C 5 646 16 824 52 1000 H 0 V 0 Z" fill="url(#wallpaperStripeGradient)" filter="url(#paperGrain)" />
+          <path d="M 158 0 C 196 172 186 368 160 510 C 136 648 152 820 196 1000 H 84 C 122 828 128 646 108 502 C 88 360 108 158 138 0 Z" fill="url(#wallpaperStripeGradient)" opacity="0.78" filter="url(#paperGrain)" />
+          <path d="M 836 0 C 804 178 814 362 842 510 C 868 646 852 820 808 1000 H 924 C 886 830 880 646 900 504 C 920 360 900 158 870 0 Z" fill="url(#wallpaperStripeGradient)" opacity="0.76" filter="url(#paperGrain)" />
+          <path d="M 978 0 C 942 170 952 354 976 502 C 996 650 988 826 950 1000 H 1000 V 0 Z" fill="url(#wallpaperStripeGradient)" filter="url(#paperGrain)" />
+          <g id="wallpaperMarks"></g>
+        </g>
+
+        <g id="mistLayer" aria-hidden="true">
+          <ellipse cx="194" cy="114" rx="230" ry="176" fill="#355f7e" fill-opacity="0.2" filter="url(#deepBlur)" />
+          <ellipse cx="812" cy="118" rx="260" ry="184" fill="#5f2f88" fill-opacity="0.2" filter="url(#deepBlur)" />
+          <ellipse cx="510" cy="422" rx="188" ry="152" fill="#f2c56b" fill-opacity="0.07" filter="url(#softGlow)" />
+          <ellipse cx="496" cy="476" rx="178" ry="132" fill="#3ab2a1" fill-opacity="0.08" filter="url(#softGlow)" />
+        </g>
+
+        <g id="ambientStars" aria-hidden="true"></g>
+        <g id="vortexGroup" aria-hidden="true"></g>
+        <g id="threadStitches" aria-hidden="true"></g>
+
+        <g id="doorwayGroup" aria-hidden="true">
+          <ellipse cx="500" cy="828" rx="206" ry="58" fill="#000000" fill-opacity="0.46" filter="url(#deepBlur)" />
+          <path d="M 342 790 C 344 612 374 390 500 276 C 626 390 656 612 658 790 C 598 830 402 830 342 790 Z" fill="#05070f" opacity="0.9" />
+          <path d="M 370 782 C 374 618 398 426 500 326 C 602 426 626 618 630 782 C 578 812 424 812 370 782 Z" fill="url(#doorLightGradient)" opacity="0.88" filter="url(#softGlow)" />
+          <path d="M 394 784 C 398 632 418 470 500 374 C 582 470 602 632 606 784 C 564 806 436 806 394 784 Z" fill="url(#doorPaintGradient)" opacity="0.68" filter="url(#paintTexture)" />
+          <path d="M 424 782 C 428 648 444 500 500 420 C 556 500 572 648 576 782 C 546 794 454 794 424 782 Z" fill="#02050c" opacity="0.86" />
+          <path d="M 500 374 C 560 460 574 620 574 774" fill="none" stroke="#8ad7dc" stroke-opacity="0.12" stroke-width="6" stroke-linecap="round" />
+          <path d="M 500 374 C 440 460 426 620 426 774" fill="none" stroke="#f5d071" stroke-opacity="0.1" stroke-width="6" stroke-linecap="round" />
+          <path d="M 394 784 C 398 632 418 470 500 374 C 582 470 602 632 606 784" fill="none" stroke="#c6eff0" stroke-opacity="0.18" stroke-width="3" stroke-linecap="round" />
+          <g id="doorButtons">
+            <circle cx="392" cy="602" r="17" fill="url(#buttonEyeGradient)" />
+            <circle cx="608" cy="602" r="17" fill="url(#buttonEyeGradient)" />
+            <circle cx="392" cy="602" r="4" fill="#030306" />
+            <circle cx="608" cy="602" r="4" fill="#030306" />
+            <path d="M 380 590 L 404 614 M 404 590 L 380 614 M 596 590 L 620 614 M 620 590 L 596 614" stroke="#8a93a6" stroke-opacity="0.42" stroke-width="1.6" stroke-linecap="round" />
+          </g>
+        </g>
+
+        <ellipse cx="500" cy="430" rx="208" ry="168" fill="url(#centerVoid)" opacity="0.9" aria-hidden="true" />
+        <ellipse cx="500" cy="438" rx="146" ry="116" fill="#020307" opacity="0.62" filter="url(#deepBlur)" aria-hidden="true" />
+
+        <g id="watchMotionGroup">
+          <g
+            id="watchGroup"
+            class="interactive-shape"
+            tabindex="0"
+            role="button"
+            aria-label="Alternar entre hora real e contagem regressiva"
+            transform="translate(500 432)"
+          >
+            <ellipse cx="0" cy="110" rx="132" ry="30" fill="#000000" fill-opacity="0.45" filter="url(#deepBlur)" />
+
+            <g id="clockCreature" aria-hidden="true">
+              <circle r="145" fill="#0b2240" fill-opacity="0.84" stroke="#020305" stroke-opacity="0.8" stroke-width="3" />
+              <circle r="126" fill="none" stroke="#020305" stroke-opacity="0.8" stroke-width="4" />
+              <circle r="113" fill="none" stroke="#f2c05a" stroke-opacity="0.28" stroke-width="1.5" stroke-dasharray="2 11" />
+              <g id="clockVines">
+                <path d="M -110 -36 C -170 -70 -176 34 -126 28 C -166 40 -158 88 -116 72 C -82 58 -100 18 -124 42" />
+                <path d="M 106 -70 C 160 -104 168 -18 124 -26 C 176 -4 152 62 116 42 C 92 28 106 -2 130 12" />
+                <path d="M -32 118 C -74 130 -94 154 -64 166 C -28 181 -24 130 -58 142 M 20 122 C 54 132 74 156 44 166 C 8 178 7 132 40 143" />
+              </g>
+              <g id="clockStars"></g>
+            </g>
+
+            <g aria-hidden="true">
+              <path
+                d="M -12 -144 C -12 -166 12 -166 12 -144 L 12 -108 C 12 -98 -12 -98 -12 -108 Z"
+                fill="url(#watchInnerMetal)"
+                stroke="#8b8399"
+                stroke-opacity="0.45"
+                stroke-width="2"
+              />
+              <ellipse cx="0" cy="-124" rx="20" ry="12" fill="url(#watchOuterMetal)" />
+              <circle cx="0" cy="-136" r="5" fill="#151219" />
+            </g>
+
+            <g aria-hidden="true">
+              <circle r="100" fill="#05060c" />
+              <circle r="96" fill="url(#watchOuterMetal)" filter="url(#paintTexture)" />
+              <circle r="91" fill="none" stroke="#020305" stroke-opacity="0.78" stroke-width="2.2" />
+              <circle r="86" fill="#0b2240" />
+              <circle r="80" fill="none" stroke="#020305" stroke-opacity="0.62" stroke-width="2" />
+
+              <path d="M -101 -16 C -116 -14 -121 12 -100 18" fill="none" stroke="#332b36" stroke-width="5" stroke-linecap="round" />
+              <path d="M 101 -16 C 116 -14 121 12 100 18" fill="none" stroke="#332b36" stroke-width="5" stroke-linecap="round" />
+              <path d="M -16 -101 C -14 -116 12 -121 18 -100" fill="none" stroke="#332b36" stroke-width="5" stroke-linecap="round" />
+              <path d="M -16 101 C -14 116 12 121 18 100" fill="none" stroke="#332b36" stroke-width="5" stroke-linecap="round" />
+
+              <circle cx="-78" cy="-52" r="6" fill="url(#buttonEyeGradient)" />
+              <circle cx="78" cy="-58" r="6" fill="url(#buttonEyeGradient)" />
+              <circle cx="-72" cy="66" r="6" fill="url(#buttonEyeGradient)" />
+              <circle cx="70" cy="60" r="6" fill="url(#buttonEyeGradient)" />
+            </g>
+
+            <g id="watchFaceLayer" aria-hidden="true">
+              <circle id="watchGlowMain" r="78" fill="url(#watchGlowGradient)" opacity="0.2" filter="url(#softGlow)" />
+              <circle r="80" fill="url(#watchFaceGradient)" stroke="#020305" stroke-opacity="0.86" stroke-width="2.5" />
+              <circle r="73" fill="none" stroke="#1c140b" stroke-opacity="0.12" stroke-width="1" />
+              <g id="watchStars" opacity="0.85"></g>
+              <g id="watchTicks"></g>
+              <g id="objectiveMarkers"></g>
+              <g id="watchNumbers"></g>
+              <g id="watchHands">
+                <path id="hourHand" d="M 0 8 L 0 -48" fill="none" stroke="url(#hourHandGradient)" stroke-width="8.5" stroke-linecap="round" />
+                <path id="minuteHand" d="M 0 10 L 0 -72" fill="none" stroke="url(#minuteHandGradient)" stroke-width="5" stroke-linecap="round" />
+                <path id="secondHand" d="M 0 14 L 0 -76" fill="none" stroke="#b35b45" stroke-width="1.2" stroke-opacity="0.7" stroke-linecap="round" />
+                <circle r="10" fill="#0a0a0a" />
+                <circle r="4.2" fill="#181818" />
+              </g>
+            </g>
+
+            <g id="pendulumGroup" aria-hidden="true">
+              <path d="M 0 103 C -1 132 1 154 0 178" fill="none" stroke="#7b7184" stroke-width="3" stroke-linecap="round" />
+              <circle cx="0" cy="194" r="15" fill="url(#buttonEyeGradient)" stroke="#d5c587" stroke-opacity="0.34" stroke-width="1.5" />
+              <path d="M -7 187 L 7 201 M 7 187 L -7 201" stroke="#d6d0df" stroke-opacity="0.3" stroke-width="1.6" stroke-linecap="round" />
+            </g>
+
+            <circle class="focus-ring" r="132" fill="none" stroke="rgba(215, 241, 255, 0.95)" stroke-width="3" />
+            <circle class="hit-area" r="140" fill="transparent" />
+          </g>
+        </g>
+
+        <g
+          id="keyGroup"
+          class="interactive-shape"
+          tabindex="0"
+          role="button"
+          aria-label="Travar ou destravar o movimento do portal"
+          transform="translate(408 704) rotate(-29)"
+        >
+          <ellipse cx="42" cy="22" rx="132" ry="24" fill="#000000" fill-opacity="0.28" filter="url(#deepBlur)" />
+          <circle cx="0" cy="0" r="28" fill="url(#watchInnerMetal)" />
+          <circle cx="0" cy="0" r="13" fill="#090a10" />
+          <rect x="24" y="-8" width="134" height="16" rx="8" fill="url(#watchOuterMetal)" />
+          <rect x="146" y="-18" width="16" height="20" rx="2" fill="url(#watchInnerMetal)" />
+          <rect x="162" y="-34" width="18" height="36" rx="2" fill="url(#watchInnerMetal)" />
+          <rect x="180" y="-12" width="16" height="14" rx="2" fill="url(#watchInnerMetal)" />
+          <rect x="32" y="-4" width="120" height="4" rx="2" fill="#f2d47a" fill-opacity="0.22" />
+          <circle id="keyGlow" cx="0" cy="0" r="34" fill="#7cf1dd" fill-opacity="0" filter="url(#softGlow)" />
+          <rect class="focus-ring" x="-62" y="-56" width="280" height="108" rx="54" fill="none" stroke="rgba(215, 241, 255, 0.95)" stroke-width="3" />
+          <rect class="hit-area" x="-72" y="-64" width="300" height="126" rx="63" fill="transparent" />
+        </g>
+
+        <g id="buttonsGroup" aria-label="Temas do portal"></g>
+
+        <g id="objectivePanel" class="objective-panel" transform="translate(378 604)" opacity="0" aria-hidden="true">
+          <path
+            class="objective-panel-bg"
+            d="M 15 0 H 262 C 274 0 282 8 282 20 V 106 C 282 118 274 126 262 126 H 15 C 3 126 -5 118 -5 106 V 20 C -5 8 3 0 15 0 Z"
+            fill="#06152a"
+            stroke="#f2d27a"
+            stroke-opacity="0.54"
+            stroke-width="1.8"
+          />
+          <path d="M 15 17 H 190" stroke="url(#threadGradient)" stroke-opacity="0.26" stroke-width="1.5" stroke-dasharray="6 8" stroke-linecap="round" />
+          <path d="M 14 96 H 263" stroke="#f2d27a" stroke-opacity="0.16" stroke-width="1" />
+          <g id="objectiveBack" class="objective-back" tabindex="0" role="button" aria-label="Voltar para o relógio" transform="translate(248 22)">
+            <rect x="-2" y="-12" width="40" height="20" rx="7" fill="#101725" stroke="#86f3e5" stroke-opacity="0.28" />
+            <text x="18" y="-1" class="objective-back-text">Voltar</text>
+          </g>
+          <text id="objectiveNumber" class="objective-number" x="16" y="36"></text>
+          <text id="objectiveTitle" class="objective-title" x="52" y="36"></text>
+          <text id="objectiveWhen" class="objective-meta" x="16" y="54"></text>
+          <text id="objectiveStatus" class="objective-status" x="16" y="70"></text>
+          <text id="objectiveTextA" class="objective-copy" x="16" y="83"></text>
+          <text id="objectiveTextB" class="objective-copy" x="16" y="92"></text>
+          <text id="objectiveDetailA" class="objective-detail" x="16" y="126"></text>
+          <text id="objectiveDetailB" class="objective-detail" x="96" y="126"></text>
+          <text id="objectiveDetailC" class="objective-detail" x="176" y="126"></text>
+          <g id="objectiveCountdown" transform="translate(16 103)">
+            <g class="count-chip">
+              <rect x="0" y="-3" width="45" height="18" rx="6" />
+              <text id="objectiveDays" class="objective-count-number" x="22.5" y="8"></text>
+              <text class="objective-count-label" x="22.5" y="15">DIAS</text>
+            </g>
+            <g class="count-chip" transform="translate(52 0)">
+              <rect x="0" y="-3" width="45" height="18" rx="6" />
+              <text id="objectiveHours" class="objective-count-number" x="22.5" y="8"></text>
+              <text class="objective-count-label" x="22.5" y="15">HORAS</text>
+            </g>
+            <g class="count-chip" transform="translate(104 0)">
+              <rect x="0" y="-3" width="45" height="18" rx="6" />
+              <text id="objectiveMinutes" class="objective-count-number" x="22.5" y="8"></text>
+              <text class="objective-count-label" x="22.5" y="15">MIN</text>
+            </g>
+            <g class="count-chip" transform="translate(156 0)">
+              <rect x="0" y="-3" width="45" height="18" rx="6" />
+              <text id="objectiveSeconds" class="objective-count-number" x="22.5" y="8"></text>
+              <text class="objective-count-label" x="22.5" y="15">SEG</text>
+            </g>
+          </g>
+        </g>
+      </svg>
+
+      <p class="sr-only" id="liveStatus" aria-live="polite"></p>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
